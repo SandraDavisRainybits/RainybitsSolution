@@ -1,0 +1,45 @@
+                                                           Program Challenge Question
+
+1 - As a user, I need to read(import) a resume/cv as a text file from the local path (note: use the sample resumes attached with this mail)
+2 - As a user, I need to extract the imported file and read the fields like Name, Email, Address, and Mobile/Phone.
+3 - As a user, I need to view all the above information in a console app/web app.(for any resume that the user importing)
+
+SOLUTION CODE
+
+
+ class Program
+    {
+        [STAThread]
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Browse Y/N");
+            FileRead();
+        }
+
+        private static void FileRead()
+        {
+            var input = Console.ReadLine();
+            if (input.ToUpper() == "Y")
+            {
+                OpenFileDialog dialog = new OpenFileDialog();
+                if (DialogResult.OK == dialog.ShowDialog())
+                {
+                    string path = dialog.FileName;
+                    var fileList = File.ReadLines(path).ToList();
+                    for (int i = 0; i < fileList.Count(); i++)
+                    {
+                        if (fileList[i].Contains("Name") || fileList[i].Contains("Email") ||
+                            fileList[i].Contains("Address") || fileList[i].Contains("Contact No"))
+                        {
+                            Console.WriteLine(fileList[i]);
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("Unable to read");
+            }
+        }
+    }
